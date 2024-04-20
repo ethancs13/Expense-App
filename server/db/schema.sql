@@ -1,0 +1,108 @@
+DROP DATABASE IF EXISTS por_db;
+CREATE DATABASE por_db;
+
+ USE por_db;
+
+ CREATE TABLE users (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	fn VARCHAR(50) NOT NULL,
+	ln VARCHAR(50),
+	email VARCHAR(50) NOT NULL,
+	password VARCHAR(100) NOT NULL
+ );
+
+CREATE TABLE userData (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    fn VARCHAR(50) NOT NULL,
+    ln VARCHAR(50),
+	email VARCHAR(60) NOT NULL,
+	cellphone VARCHAR(100) NOT NULL,
+    cellBillable BOOLEAN NOT NULL,
+    landline VARCHAR(100) NOT NULL,
+    landlineBillable BOOLEAN NOT NULL,
+    longdist VARCHAR(100) NOT NULL,
+    longdistBillable BOOLEAN NOT NULL,
+    broadband VARCHAR(100) NOT NULL,
+    broadbandBillable BOOLEAN NOT NULL,
+    entertainment VARCHAR(100) NOT NULL,
+    entertainmentBillable BOOLEAN NOT NULL,
+	parking INTEGER NOT NULL,
+	parkingBillable BOOLEAN NOT NULL,
+	tolls INTEGER NOT NULL,
+	tollsBillable INTEGER NOT NULL,
+	mileage INTEGER NOT NULL,
+	mileageBillable INTEGER NOT NULL,
+	billableCC INTEGER NOT NULL,
+	billableCC_amnt INTEGER NOT NULL,
+	nonBillable INTEGER NOT NULL,
+	nonBillable_amnt INTEGER NOT NULL,
+	nonBillableCC INTEGER NOT NULL,
+	nonBillableCC_amnt INTEGER NOT NULL,
+	billable INTEGER NOT NULL,
+	billable_amnt INTEGER NOT NULL,
+	comments VARCHAR(500) NOT NULL,
+	doc_name VARCHAR(100) NOT NULL,
+	doc_path VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE mileage (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	entry_id INT NOT NULL,
+	date VARCHAR(100) NOT NULL,
+	purpose VARCHAR(200) NOT NULL,
+	miles INTEGER NOT NULL,
+	total INTEGER NOT NULL,
+	billable BOOLEAN NOT NULL,
+	FOREIGN KEY (entry_id)
+	REFERENCES userData(id)
+);
+
+CREATE TABLE billData (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	fbCC INTEGER NOT NULL,
+	fbCCBillable INTEGER NOT NULL,
+	fb INTEGER NOT NULL,
+	fbBillable INTEGER NOT NULL,
+	billOnCard INTEGER NOT NULL,
+	billOOP INTEGER NOT NULL,
+	nonBillOnCard INT NOT NULL,
+	nonBillOOP INT NOT NULL,
+	CCtotal INT NOT NULL,
+	OOPtotal INT NOT NULL
+);
+
+CREATE TABLE food (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    entry_id INT NOT NULL,
+    billData_id INT NOT NULL,
+    date VARCHAR(100) NOT NULL,
+    amount VARCHAR(200) NOT NULL,
+    restaurant VARCHAR(300) NOT NULL,
+    persons INTEGER NOT NULL,
+    title VARCHAR(200),
+    reason VARCHAR(400),
+    billable BOOLEAN NOT NULL,
+    PoRCC BOOLEAN NOT NULL,
+    FOREIGN KEY (billData_id) REFERENCES billData(id),
+    FOREIGN KEY (entry_id) REFERENCES userData(id)
+);
+
+ CREATE TABLE items (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	entry_id INT NOT NULL,
+	fn VARCHAR(50) NOT NULL,
+	ln VARCHAR(50),
+	email VARCHAR(50) NOT NULL,
+	item VARCHAR(100) NOT NULL,
+	date VARCHAR(100) NOT NULL,
+	subTotal VARCHAR(100) NOT NULL,
+	cityTax VARCHAR(100) NOT NULL,
+	taxPercent VARCHAR(100) NOT NULL,
+	total VARCHAR(100) NOT NULL,
+	source VARCHAR(100) NOT NULL,
+	shippedFrom VARCHAR(100) NOT NULL,
+	shippedTo VARCHAR(100) NOT NULL,
+	billable VARCHAR(100) NOT NULL,
+	FOREIGN KEY (entry_id)
+	REFERENCES userData(id)
+ );

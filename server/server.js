@@ -104,6 +104,10 @@ app.get("/", verifyUser, (req, res) => {
 });
 // AUTH LOGIC
 // ----------------------------------------------------
+app.get('/check-auth', verifyUser, (req, res) => {
+  res.json({ isAuthenticated: true });
+});
+
 
 // LOGIN ROUTES
 // ----------------------------------------------------

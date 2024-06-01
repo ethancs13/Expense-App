@@ -23,17 +23,7 @@ const queryAsync = (sql, values) => {
   });
 };
 
-// Example usage
-async function exampleUsage() {
-  try {
-    const result = await queryAsync('SELECT * FROM your_table');
-    console.log(result);
-  } catch (error) {
-    console.error('Error executing query:', error);
-  }
-}
-
-// Close the pool when your application exits
+// Close the pool when application exits
 process.on('exit', () => {
   pool.end();
 });

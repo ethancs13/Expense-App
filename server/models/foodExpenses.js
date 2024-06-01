@@ -1,9 +1,8 @@
 const { queryAsync } = require('../config/connection');
 
-function insertFood(data, callback) {
-
-    const sql = 'INSERT INTO food (entry_id, billData_id, date, amount, restaurant, persons, title, reason, billable, PoRCC) VALUES (?)';
-    const values = [...data];
+function insertFoodExpense(data, callback) {
+    const sql = 'INSERT INTO FoodExpenses (user_id, date, amount, persons, type, purpose, billable, porCC) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+    const values = [data.user_id, data.date, data.amount, data.persons, data.type, data.purpose, data.billable, data.porCC];
 
     queryAsync(sql, values)
         .then(results => {
@@ -17,5 +16,5 @@ function insertFood(data, callback) {
 }
 
 module.exports = {
-    insertFood,
+    insertFoodExpense,
 };
